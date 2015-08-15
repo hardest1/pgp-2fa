@@ -3,7 +3,71 @@
 
 Wrapper around the GnuPG extension for PHP to make 2-Factor-Authentication with PGP as easy as possible.
 
+<b>PECL-Extension 'GnuPG' is required!</b>
+
 <b>Root access to the server is necessary to install the extension!</b>
+
+### Usage
+
+Usage is pretty simple.
+
+If pgp-2fa is used with a standard MySQL-based login, this code has to go on the page where your login form is.
+First step is to start the session (if it isn't already started):
+```bash
+<?php
+session_start();
+?>
+```
+Then you have to include the php-2fa class and create a new instance:
+```bash
+<?php
+include('/path/to/pgp-2fa.php');
+$pgp = new pgp_2fa();
+?>
+```
+Now you can generate a new secret code. The default length is 15 and it is made out of numbers.
+The function to generate the secret code can easily be adjusted for your own needs.
+After invoking this function, the unencrypted form of the secret is saved locally within the instance of the class for the next step, and a hashed and safe form of this secret is stored in the session:
+```bash
+<?php
+$pgp->generateSecret();
+?>
+```
+After generating the secret, you can encrypt it with PGP with a given Public Key:
+(In the most cases, the public key is stored in a MySQL database so you have to connect to your database and retrieve the public key for the user that is currently logging in)
+```bash
+<?php
+$pgp_message = $pgp->encryptSecret($public_key);
+?>
+```
+The complete code until now should look something like this:
+```bash
+<?php
+session_start();
+
+include('/path/to/pgp-2fa.php');
+
+$pgp = new pgp_2fa();
+$pgp->generateSecret();
+
+$pgp_message = $pgp->encryptSecret($public_key);
+?>
+```
+The $pgp_message variable contains the PGP message the user has to decrypt.
+This message should be displayed together with an input where the user can type in the decrypted code.
+
+To compare the user given code with the real code, just use compare():
+```bash
+<?php
+if($pgp->compare($_POST['user-input'])){
+  // Success!
+}else{
+  // Failure!
+}
+?>
+```
+
+Examples are included!
 
 ### How to install the GnuPG PHP Extension
 #### 1. Install required packages
