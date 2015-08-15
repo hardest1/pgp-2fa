@@ -3,13 +3,15 @@
 
 Wrapper around the GnuPG extension for PHP to make 2-Factor-Authentication with PGP as easy as possible.
 
-<b>PECL-Extension 'GnuPG' is required!</b>
+<b>PECL-Extension 'GnuPG' is required! (Installation guide below)</b>
 
 <b>Root access to the server is necessary to install the extension!</b>
 
 ### Usage
 
 Usage is pretty simple.
+
+Just upload 'pgp-2fa.php' to your webserver and follow the steps below.
 
 If pgp-2fa is used with a standard MySQL-based login, this code has to go on the page where your login form is.
 First step is to start the session (if it isn't already started):
