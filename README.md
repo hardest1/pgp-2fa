@@ -41,4 +41,5 @@ extension=gnupg.so
 #### Done!
 
 If everything works fine, you should be able to see a new entry in your phpinfo():
+
 ![PHPInfo](docs/img/phpinfo.png "PHP Info")
