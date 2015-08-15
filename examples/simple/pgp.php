@@ -48,6 +48,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and !isset($_POST['pgp-key'])){
                 <button class="btn btn-primary form-control">Check!</button>
             </form>
         </div>
-        
+        <h6 class="text-center">This awesome theme is called <a href="//bootswatch.com/flatly">'Flatly'</a> and was made by <a href="//bootswatch.com/">Bootswatch.com</a>!</h6>
     </body>
 </html>

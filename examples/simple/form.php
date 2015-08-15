@@ -17,6 +17,6 @@
                 <button class="btn btn-primary form-control">Submit!</button>
             </form>
         </div>
-        
+        <h6 class="text-center">This awesome theme is called <a href="//bootswatch.com/flatly">'Flatly'</a> and was made by <a href="//bootswatch.com/">Bootswatch.com</a>!</h6>
     </body>
 </html>
