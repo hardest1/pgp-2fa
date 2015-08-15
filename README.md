@@ -1,4 +1,4 @@
-# 2fa-pgp
+# pgp-2fa
 2-Factor-Authentication for the Web with PGP
 
 Wrapper around the GnuPG extension for PHP to make 2-Factor-Authentication with PGP as easy as possible.
