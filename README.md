@@ -91,7 +91,6 @@ cd gpgme-X.X.X
 ```
 Configure, make and install GPGME:
 ```bash
-tar xfvj gpgme-X.X.X.tar.bz2
 configure
 make
 make install
