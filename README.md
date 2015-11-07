@@ -29,14 +29,14 @@ $pgp = new pgp_2fa();
 ```
 Now you can generate a new secret code. The default length is 15 and it is made out of numbers.
 The function to generate the secret code can easily be adjusted for your own needs.
-After invoking this function, the unencrypted form of the secret is saved locally within the instance of the class for the next step, and a hashed and safe form of this secret is stored in the session:
+After invoking this function, the unencrypted form of the secret is saved within the instance of the class for the next step, and a hashed and safe form of this secret is stored in the session:
 ```bash
 <?php
 $pgp->generateSecret();
 ?>
 ```
 After generating the secret, you can encrypt it with PGP with a given Public Key:
-(In the most cases, the public key is stored in a MySQL database so you have to connect to your database and retrieve the public key for the user that is currently logging in)
+(In most cases, the public key is stored in a MySQL database so you have to connect to your database and retrieve the public key for the user that is currently logging in)
 ```bash
 <?php
 $pgp_message = $pgp->encryptSecret($public_key);
@@ -58,7 +58,7 @@ $pgp_message = $pgp->encryptSecret($public_key);
 The $pgp_message variable contains the PGP message the user has to decrypt.
 This message should be displayed together with an input where the user can type in the decrypted code.
 
-To compare the user given code with the real code, just use compare():
+To compare the user given code with the real code , just use compare() in your Form validation process:
 ```bash
 <?php
 if($pgp->compare($_POST['user-input'])){
@@ -75,7 +75,7 @@ Examples are included!
 #### 1. Install required packages
 ```bash
 apt-get install build-essential libssl-dev
-apt-get install gnupg libgpg-error-dev libassuan-dev
+apt-get install gnupg libgpg-error-dev libassuan-dev libgpgme11-dev
 apt-get install php5-dev php-pear
 ```
 #### 2. Download and build GPGME
