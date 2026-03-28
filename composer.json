@@ -1,0 +1,14 @@
+{
+  "name": "hardest1/pgp-2fa",
+  "description": "PGP-based Two-Factor Authentication for PHP",
+  "type": "library",
+  "license": "MIT",
+  "keywords": ["pgp", "2fa", "two-factor", "authentication", "gnupg"],
+  "require": {
+    "php": ">=7.4",
+    "ext-gnupg": "*"
+  },
+  "autoload": {
+    "files": ["pgp-2fa.php"]
+  }
+}
