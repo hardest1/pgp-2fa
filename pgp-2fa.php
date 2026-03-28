@@ -124,16 +124,9 @@ class pgp_2fa {
 
             return $enc;
         } finally {
-            // Clean up the temporary GnuPG home directory
-            $files = glob("$gnupgHome/*") ?: [];
-            // Also remove hidden files (e.g. .gpg-v21-migrated)
-            $hiddenFiles = glob("$gnupgHome/.*") ?: [];
-            foreach (array_merge($files, $hiddenFiles) as $file) {
-                if (is_file($file)) {
-                    unlink($file);
-                }
-            }
-            @rmdir($gnupgHome);
+            // Recursively remove the temporary GnuPG home directory.
+            // GnuPG may create subdirectories (e.g. private-keys-v1.d/).
+            self::removeDirectory($gnupgHome);
         }
     }
 
@@ -177,6 +170,40 @@ class pgp_2fa {
         }
 
         return $result;
+    }
+
+    /**
+     * Recursively remove a directory and all its contents.
+     *
+     * @param string $dir Absolute path to the directory.
+     * @return void
+     */
+    private static function removeDirectory(string $dir): void
+    {
+        if (!is_dir($dir)) {
+            return;
+        }
+
+        // GLOB_DOTMATCH is not available on all systems, so we scan
+        // for normal and hidden entries separately.
+        $items = array_merge(
+            glob("$dir/*") ?: [],
+            glob("$dir/.*") ?: []
+        );
+
+        foreach ($items as $item) {
+            $basename = basename($item);
+            if ($basename === '.' || $basename === '..') {
+                continue;
+            }
+            if (is_dir($item)) {
+                self::removeDirectory($item);
+            } else {
+                @unlink($item);
+            }
+        }
+
+        @rmdir($dir);
     }
 
     /**
